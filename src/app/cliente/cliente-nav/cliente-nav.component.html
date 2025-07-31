@@ -1,0 +1,25 @@
+<nav class="navbar">
+  <ul class="nav-list">
+    <li>
+      <a
+        routerLink="/cliente/inicio"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Inicio
+      </a>
+    </li>
+    <li>
+      <a
+        routerLink="/cliente/productos"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Productos
+      </a>
+    </li>
+    <li>
+      <a (click)="logout()">Cerrar sesión</a>
+    </li>
+  </ul>
+</nav>

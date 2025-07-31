@@ -1,0 +1,54 @@
+<!-- proveedores.component.html -->
+<div class="container my-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Listado de Proveedores</h5>
+      <button class="btn btn-light btn-sm" (click)="abrirFormulario()">+ Nuevo</button>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-striped mb-0">
+        <thead class="table-primary">
+          <tr>
+            <th>Numero de proveedor</th>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let proveedor of proveedores">
+            <td>{{ proveedor.id }}</td>
+            <td>{{ proveedor.nombre }}</td>
+            <td>{{ proveedor.tel }}</td>
+            <td>{{ proveedor.direccion }}</td>
+            <td>
+              <button class="btn btn-sm btn-warning me-2" (click)="seleccionarProveedor(proveedor)">Editar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Formulario condicional -->
+  <div *ngIf="modoEdicion" class="card mt-4 p-3 shadow-sm">
+    <h5>{{ proveedorSeleccionado?.id && proveedorSeleccionado.id !== 0 ? 'Editar proveedor' : 'Nuevo proveedor' }}</h5>
+    <form (ngSubmit)="guardarProveedor()">
+      <div class="mb-3">
+        <label>Nombre</label>
+        <input type="text" class="form-control" [(ngModel)]="proveedorSeleccionado.nombre" name="nombre" required />
+      </div>
+      <div class="mb-3">
+        <label>Teléfono</label>
+        <input type="text" class="form-control" [(ngModel)]="proveedorSeleccionado.tel" name="tel" required />
+      </div>
+      <div class="mb-3">
+        <label>Dirección</label>
+        <input type="text" class="form-control" [(ngModel)]="proveedorSeleccionado.direccion" name="direccion" required />
+      </div>
+      <button class="btn btn-primary" type="submit">Guardar</button>
+      <button class="btn btn-secondary ms-2" type="button" (click)="cancelarEdicion()">Cancelar</button>
+    </form>
+  </div>
+</div>

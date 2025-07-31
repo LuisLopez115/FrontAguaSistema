@@ -1,0 +1,66 @@
+<div class="container mt-4">
+
+  <table class="table table-bordered table-hover mt-4">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Cliente</th>
+        <th>Fecha</th>
+        <th>Total</th>
+        <th>Comentarios</th>
+        <th>Detalles</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let venta of ventas">
+        <td>{{ venta.id }}</td>
+        <td>{{ venta.cliente }}</td>
+        <td>{{ venta.fecha | date:'short' }}</td>
+        <td>{{ venta.total | currency }}</td>
+        <td>{{ venta.comentarios }}</td>
+       <td>
+  <button
+    *ngIf="venta.detalles && venta.detalles.length > 0"
+    class="btn btn-info btn-sm"
+    (click)="verDetalles(venta.detalles)">
+    Ver detalles
+  </button>
+  <span *ngIf="!venta.detalles || venta.detalles.length === 0">—</span>
+</td>
+
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="editarVenta(venta)">Actualizar</button>
+          <button class="btn btn-danger btn-sm" (click)="eliminarVenta(venta.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="btn btn-success mb-3" routerLink="/admin/ventas/nueva">Nueva Venta</button>
+
+</div>
+
+<!-- Modal -->
+<div class="modal-backdrop" *ngIf="mostrarModal" style="position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.5); display:flex; justify-content:center; align-items:center;">
+  <div class="modal-dialog" style="background:white; padding:20px; border-radius:8px; max-height: 80vh; overflow-y: auto; width: 90%; max-width: 600px;">
+    <h3>Detalles</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detalle of detallesFiltrados">
+          <td>{{ detalle.producto }}</td>
+          <td>{{ detalle.cantidad }}</td>
+          <td>{{ detalle.precio | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+<button (click)="mostrarModal = false" class="btn btn-secondary">Cerrar</button>
+  </div>
+</div>

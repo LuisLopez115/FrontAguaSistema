@@ -1,0 +1,134 @@
+<div class="container my-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Listado de Materia Prima</h5>
+      <button class="btn btn-light btn-sm" (click)="abrirFormulario()">+ Nuevo</button>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-striped mb-0">
+        <thead class="table-success">
+          <tr>
+            <th>Número de Materia Prima</th>
+              <th>Nombre de la materia</th>
+
+            <th>Descripción</th>
+            <th>Costo Promedio</th>
+            <th>Cantidad en Stock</th>
+            <th>Proveedor</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let materia of materias">
+            <td>{{ materia.id }}</td>
+                <td>{{ materia.nombre }}</td> <!-- 🔥 ESTA -->
+
+            <td>{{ materia.descripcion }}</td>
+            <td>{{ materia.costoPromedio | currency:'USD' }}</td>
+            <td>{{ materia.cantidadStock }}</td>
+  <td>{{ obtenerNombreProveedor(materia.proveedorId) }}</td>
+            <td>
+              <button class="btn btn-sm btn-warning me-2" (click)="seleccionarMateria(materia)">Editar</button>
+              <button class="btn btn-sm btn-danger" (click)="eliminarMateria(materia.id)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Formulario condicional -->
+<div *ngIf="modoEdicion" class="card mt-4 p-3 shadow-sm">
+  <h5>{{ materiaSeleccionada.id ? 'Editar materia prima' : 'Nueva materia prima' }}</h5>
+  <form (ngSubmit)="guardarMateria()" #formMateria="ngForm">
+
+    <div class="mb-3">
+      <label>Nombre</label>
+      <input
+        type="text"
+        class="form-control"
+        name="nombre"
+        [(ngModel)]="materiaSeleccionada.nombre"
+        required
+        #nombre="ngModel"
+      />
+      <div *ngIf="nombre.invalid && nombre.touched" class="text-danger">
+        El nombre es obligatorio
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label>Descripción</label>
+      <input
+        type="text"
+        class="form-control"
+        name="descripcion"
+        [(ngModel)]="materiaSeleccionada.descripcion"
+        required
+        #descripcion="ngModel"
+      />
+      <div *ngIf="descripcion.invalid && descripcion.touched" class="text-danger">
+        La descripción es obligatoria
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label>Costo Promedio</label>
+      <input
+        type="number"
+        class="form-control"
+        name="costoPromedio"
+        [(ngModel)]="materiaSeleccionada.costoPromedio"
+        required
+        min="0"
+        #costoPromedio="ngModel"
+      />
+      <div *ngIf="costoPromedio.invalid && costoPromedio.touched" class="text-danger">
+        Debes ingresar un costo válido
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label>Cantidad en Stock</label>
+      <input
+        type="number"
+        class="form-control"
+        name="cantidadStock"
+        [(ngModel)]="materiaSeleccionada.cantidadStock"
+        required
+        min="0"
+        #cantidadStock="ngModel"
+      />
+      <div *ngIf="cantidadStock.invalid && cantidadStock.touched" class="text-danger">
+        Debes ingresar una cantidad válida
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label>Proveedor</label>
+  <select
+  class="form-select"
+  name="proveedorId"
+  [(ngModel)]="materiaSeleccionada.proveedorId"
+  required
+  #proveedorId="ngModel"
+>
+  <option [ngValue]="0" disabled>-- Selecciona un proveedor --</option>
+  <option *ngFor="let proveedor of proveedores" [ngValue]="proveedor.id">
+    {{ proveedor.nombre }}
+  </option>
+</select>
+
+
+
+      <div *ngIf="proveedorId.invalid && proveedorId.touched" class="text-danger">
+        Debes seleccionar un proveedor
+      </div>
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="formMateria.invalid">Guardar</button>
+    <button class="btn btn-secondary ms-2" type="button" (click)="cancelarEdicion()">Cancelar</button>
+  </form>
+</div>
+
+</div>

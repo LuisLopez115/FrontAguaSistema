@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">Sistema Agua Pluvial</a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <!-- Común para todos -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+        </li>
+
+        <!-- Si NO está logueado -->
+        <ng-container *ngIf="!auth.isLoggedIn()">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+          </li>
+        </ng-container>
+
+        <!-- Si está logueado como ADMIN -->
+        <ng-container *ngIf="auth.isLoggedIn() && esAdmin">
+          <li class="nav-item"><a class="nav-link" routerLink="users" routerLinkActive="active">Usuarios</a></li>
+<li class="nav-item"><a class="nav-link" routerLink="/admin/proveedores" routerLinkActive="active">Proveedores</a></li>
+<li class="nav-item"><a class="nav-link" routerLink="/admin/compras" routerLinkActive="active">Compras</a></li>
+<li class="nav-item"><a class="nav-link" routerLink="/admin/materia-prima" routerLinkActive="active">Materia Prima</a></li>
+<li class="nav-item"><a class="nav-link" routerLink="/admin/ventas" routerLinkActive="active">Ventas</a></li>
+
+  <li class="nav-item">
+          <a class="nav-link" routerLink="admin/productos" routerLinkActive="active">Productos</a>
+        </li>
+
+        </ng-container>
+
+        <!-- Si está logueado como CLIENTE -->
+        <ng-container *ngIf="auth.isLoggedIn() && esCliente">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/cliente/" routerLinkActive="active">Mi Perfil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/cliente/" routerLinkActive="active">Mis Compras</a>
+          </li>
+        </ng-container>
+
+        <!-- Botón de Logout -->
+        <ng-container *ngIf="auth.isLoggedIn()">
+          <li class="nav-item">
+            <a class="nav-link" style="cursor:pointer;" (click)="logout()">Cerrar sesión</a>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</nav>

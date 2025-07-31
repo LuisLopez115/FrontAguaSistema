@@ -1,0 +1,63 @@
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+
+
+    <!-- Logo -->
+    <div class="text-center mb-3">
+      <img src="../../../assets/drop.png" alt="EcoDrop Logo" style="max-width: 500px;">
+    </div>
+
+  <div class="card shadow p-4" style="min-width: 350px; max-width: 400px;">
+
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
+      <div class="mb-3">
+        <label for="correo" class="form-label">Email:</label>
+        <input
+          type="email"
+          id="correo"
+          class="form-control"
+          [(ngModel)]="correo"
+          name="correo"
+          required />
+      </div>
+
+      <div class="mb-3">
+        <label for="contrasena" class="form-label">Password:</label>
+        <input
+          type="password"
+          id="contrasena"
+          class="form-control"
+          [(ngModel)]="password"
+          name="contrasena"
+          required />
+      </div>
+
+
+
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="rememberMe"name="rememberMe">
+        <label class="form-check-label" for="rememberMe">Remember Me</label>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Login</button>
+        <a href="#" class="text-decoration-none">Forgot password?</a>
+      </div>
+
+      <div class="text-center mb-2">
+        <hr>
+        <span class="px-2 bg-light position-relative" style="top: -12px;">OR</span>
+      </div>
+
+      <div class="text-center mb-3">
+        <p>Sign In using your account with</p>
+        <button type="button" class="btn btn-outline-primary me-2">
+          <i class="fab fa-facebook-f"></i> Facebook
+        </button>
+        <button type="button" class="btn btn-outline-danger">
+          <i class="fab fa-google"></i> Google
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

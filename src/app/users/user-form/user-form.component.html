@@ -1,0 +1,37 @@
+<div class="container mt-4">
+  <h2>{{ isEdit ? 'Editar Usuario' : 'Nuevo Usuario' }}</h2>
+
+  <form #form="ngForm" (ngSubmit)="saveUser()">
+    <div class="mb-3">
+      <label class="form-label">Nombre</label>
+      <input type="text" class="form-control" [(ngModel)]="user.nombre" name="nombre" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Correo</label>
+      <input type="email" class="form-control" [(ngModel)]="user.correo" name="correo" required>
+    </div>
+
+    <div class="mb-3" *ngIf="!isEdit">
+      <label class="form-label">Contraseña</label>
+<input type="password" [(ngModel)]="user.password" name="password" class="form-control" placeholder="Contraseña">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Teléfono</label>
+      <input type="text" class="form-control" [(ngModel)]="user.telefono" name="telefono">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Rol</label>
+      <select class="form-select" [(ngModel)]="user.rol" name="rol" required>
+        <option value="" disabled>Selecciona un rol</option>
+        <option value="administrador">Administrador</option>
+        <option value="cliente">Cliente</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">{{ isEdit ? 'Actualizar' : 'Guardar' }}</button>
+    <button type="button" class="btn btn-secondary ms-2" (click)="cancel()">Cancelar</button>
+  </form>
+</div>
